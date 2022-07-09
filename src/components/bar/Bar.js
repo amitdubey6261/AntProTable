@@ -6,7 +6,15 @@ export class Bar extends Component {
         super(props)
 
         this.state = {
-            showData:[],
+            sortState: {
+                idSort: "nan",
+                titleSort: "nan",
+                descSort: "nan",
+                dateSort: "nan",
+                dueSort: "nan",
+            },
+
+            showData: [],
         }
     }
     render() {
@@ -20,76 +28,193 @@ export class Bar extends Component {
         }
 
         let pageHandle = (x) => {
-            var skip  = x*5 ; 
-            var newArr=[];
-            for(var i=skip ; i<skip+5 ; i++){
-                if(!data[i]){
+            var skip = x * 5;
+            var newArr = [];
+            for (var i = skip; i < skip + 5; i++) {
+                if (!data[i]) {
                     continue;
                 }
                 newArr.push(data[i]);
             }
             this.setState({
-                showData:newArr,
+                showData: newArr,
             })
             console.log(newArr);
         }
-  
-        let handleTitle = (e) =>{
-            this.setState({
-                title:e.target.value,
-            })
-            console.log(this.state.title);
-        }
-        let handleDesc = (e) =>{
-            this.setState({
-                desc:e.target.value,
-            })
-        }
-        let handleStatus = (e) =>{
-            this.setState({
-                status:e.target.value,
-            })
-        }
-        
-        let handleUpdate = (id) =>{
-            console.log(id);
 
-        }
-        
-        let handleDelete = (id) =>{
-            console.log(id);
+        let sortByid = () => {
+            if (this.state.sortState.idSort === "decend") {
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return a.id - b.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.idSort = "acend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+            else {
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return b.id - a.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.idSort = "decend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
         }
 
+        let sortByName = () => {
+            if (this.state.sortState.titleSort === "decend") {
+                let newArr = [...this.state.showData];
+                newArr.sort(function (a, b) {
+                    let x = a.title.toLowerCase();
+                    let y = b.title.toLowerCase();
+                    if (x < y) { return -1; }
+                    if (x > y) { return +1; }
+                    return 0;
+                });
+                let newSortState = { ...this.state.sortState };
+                newSortState.titleSort = "acend";
+                console.log(newArr);
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+            else {
+                let newArr = [...this.state.showData];
+                newArr.sort(function (a, b) {
+                    let x = a.title.toLowerCase();
+                    let y = b.title.toLowerCase();
+                    if (x > y) { return -1; }
+                    if (x < y) { return +1; }
+                    return 0;
+                });
+                let newSortState = { ...this.state.sortState };
+                newSortState.titleSort = "decend";
+                console.log(newArr);
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+        }
+
+        let sortByDesc = () => {
+            if (this.state.sortState.descSort === "decend") {
+                console.log("idhar");
+                let newArr = [...this.state.showData];
+                newArr.sort(function (a, b) {
+                    let x = a.desc.toLowerCase();
+                    let y = b.desc.toLowerCase();
+                    if (x < y) { return -1; }
+                    if (x > y) { return +1; }
+                    return 0;
+                });
+                let newSortState = { ...this.state.sortState };
+                newSortState.descSort = "acend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+            else {
+                console.log("udhar");
+                let newArr = [...this.state.showData];
+                newArr.sort(function (a, b) {
+                    let x = a.desc.toLowerCase();
+                    let y = b.desc.toLowerCase();
+                    if (x > y) { return -1; }
+                    if (x < y) { return +1; }
+                    return 0;
+                });
+                let newSortState = { ...this.state.sortState };
+                newSortState.descSort = "decend";
+                console.log(newArr);
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+        }
+        let sortByCreatedOn = () => {
+            if (this.state.sortState.dateSort === "decend") {
+                console.log("idhar");
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return a.id - b.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.dateSort = "acend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+            else {
+                console.log("udhar");
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return b.id - a.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.dateSort = "decend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+        }
+        let sortByDueDate = () => {
+            if (this.state.sortState.dueSort === "decend") {
+                console.log("idhar");
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return a.id - b.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.dueSort = "acend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+            else {
+                console.log("udhar");
+                let newArr = [...this.state.showData];
+                newArr = newArr.sort(function (a, b) { return b.id - a.id });
+                let newSortState = { ...this.state.sortState };
+                newSortState.dueSort = "decend";
+                this.setState({
+                    sortState: newSortState,
+                    showData: newArr,
+                })
+            }
+        }
         return (
             <div className="barCon">
                 <div className="titleCon">
-                    <h4>Name</h4>
-                    <h4>Desc</h4>
-                    <h4>Created-On</h4>
-                    <h4>Due-Date</h4>
-                    <h4>Status</h4>
-                    <h4>Update</h4>
-                    <h4>Delete</h4>
+                    <button className='btn'  onClick={sortByid}>ID&nbsp;<i class='fas fa-caret-square-down'></i><i class='fas fa-caret-square-up'></i></button>
+                    <button className='btn'  onClick={sortByName}>Title&nbsp;<i class='fas fa-caret-square-down'></i><i class='fas fa-caret-square-up'></i></button>
+                    <button className='btn'  onClick={sortByDesc}>Desc&nbsp;<i class='fas fa-caret-square-down'></i><i class='fas fa-caret-square-up'></i></button>
+                    <button className='btn'  onClick={sortByCreatedOn}>Created-On&nbsp;<i class='fas fa-caret-square-down'></i><i class='fas fa-caret-square-up'></i></button>
+                    <button className='btn'  onClick={sortByDueDate}>Due-Date&nbsp;<i class='fas fa-caret-square-down'></i><i class='fas fa-caret-square-up'></i></button>
+                    <button className='btn' >Status&nbsp;</button>
                 </div>
                 <div className="cardCon">
                     {
                         this.state.showData.map((x) => (
                             <div className='bar'>
-                                <input type="text" onChange={handleTitle} value={x.title} name="title" id="" />
-                                <input type="text" onChange={handleDesc} value={x.desc} name="desc" id="" />
-                                <div>{x.date}</div>
-                                <div>{x.dueDate}</div>
-                                <input type="text" onChange={handleStatus} value={x.status} name="desc" id="" />
-                                <button onClick={()=>{handleUpdate(x.id)}}>Update</button>
-                                <button onClick={()=>handleDelete(x.id)}>Delete</button>
+                                <div className='showBarData'>{x.id}</div>
+                                <div className='showBarData'>{x.title}</div>
+                                <div className='showBarData'>{x.desc}</div>
+                                <div className='showBarData'>{x.date}</div>
+                                <div className='showBarData'>{x.dueDate}</div>
+                                <div className='showBarData'>{x.status}</div>
                             </div>
                         ))
                     }
-                </div>
-                <div className="Pagination">
-                    {
-                        pageArray.map((x) => <button onClick={() => { pageHandle(x) }}>{x}</button>)
-                    }
+                    <div className="Pagination">
+                        {
+                            pageArray.map((x) => <button onClick={() => { pageHandle(x) }}>{x}</button>)
+                        }
+                    </div>
                 </div>
             </div>
         )
