@@ -1,0 +1,16 @@
+.tableCon{
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inpBox{
+    background-color: coral;
+    display: flex;
+    justify-content: space-between  ;
+    width: 80vw;
+}
+.inpBox>input{
+    margin: 3vmin;
+    width: 30vh;
+}
